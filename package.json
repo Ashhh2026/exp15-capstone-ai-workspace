@@ -1,0 +1,15 @@
+{
+  "name": "exp15-capstone-ai-workspace",
+  "version": "1.0.0",
+  "description": "Experiment 15 Capstone Full-Stack AI-Integrated Project & Knowledge Workspace by Ashwarya Agrawal (23BCON1659)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^5.0.1",
+    "mongoose": "^9.0.0",
+    "mongodb-memory-server": "^10.0.0"
+  }
+}

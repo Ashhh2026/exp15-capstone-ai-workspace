@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Capstone Full-Stack AI Workspace — Ashwarya Agrawal (23BCON1659) | Exp. 15</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="top-strip">
+    <div class="container flex-row">
+      <span><strong>ASHWARYA AGRAWAL</strong> · ROLL NO: <strong>23BCON1659</strong></span>
+      <span class="mono">EXP 15 · FULL-STACK AI-INTEGRATED CAPSTONE WORKSPACE</span>
+    </div>
+  </div>
+
+  <header class="hero-header">
+    <div class="container flex-row">
+      <div>
+        <span class="eyebrow">EXPERIMENT 15 // FULL-STACK CAPSTONE (UI + REST + MONGODB + AI)</span>
+        <h1 class="main-title">Capstone <span class="serif-italic">Command</span> Center</h1>
+        <p class="subtitle">
+          Built by <strong>Ashwarya Agrawal</strong> (Roll No: <strong>23BCON1659</strong>) — unifies full-stack MongoDB/Express deliverable tracking, live KPI telemetry, and AI executive sprint briefings.
+        </p>
+      </div>
+      <div class="status-badge" id="healthBadge">System: checking...</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- KPI Strip -->
+    <section class="kpi-grid" aria-label="Capstone Delivery Metrics">
+      <div class="kpi-card">
+        <span>TOTAL DELIVERABLES</span>
+        <strong id="kpiTotal">0</strong>
+      </div>
+      <div class="kpi-card">
+        <span>COMPLETED</span>
+        <strong id="kpiDone">0</strong>
+      </div>
+      <div class="kpi-card">
+        <span>IN PROGRESS</span>
+        <strong id="kpiActive">0</strong>
+      </div>
+      <div class="kpi-card">
+        <span>COMPLETION RATE</span>
+        <strong id="kpiPct">0%</strong>
+      </div>
+    </section>
+
+    <!-- AI Executive Brief Banner -->
+    <section class="brief-panel" aria-live="polite">
+      <div class="flex-row" style="margin-bottom: 8px;">
+        <div>
+          <span class="eyebrow">AI EXECUTIVE SYNTHESIS // POST /API/AI/BRIEF</span>
+          <strong style="font-size: 1.02rem;">Live Sprint Intelligence</strong>
+        </div>
+        <div class="brief-controls">
+          <select id="briefFocusSelect" aria-label="Briefing Focus">
+            <option value="overview">Executive Overview</option>
+            <option value="risks">Risk &amp; QA Audit</option>
+            <option value="release">Release Readiness</option>
+          </select>
+          <button type="button" class="btn btn-primary" id="generateBriefBtn">✨ Synthesize Brief</button>
+        </div>
+      </div>
+      <pre id="briefOutput" class="brief-output">Loading executive brief...</pre>
+    </section>
+
+    <!-- Main Two-Column Workspace -->
+    <div class="workspace-grid">
+      <!-- Left: Add Deliverable -->
+      <section class="card" aria-labelledby="createHeading">
+        <span class="eyebrow">POST /API/DELIVERABLES</span>
+        <h2 id="createHeading" style="margin:0 0 6px;">New Deliverable</h2>
+        <p class="muted">Add a tracked feature, endpoint, or QA milestone to the capstone database.</p>
+
+        <form id="createForm" class="form-stack" novalidate>
+          <div class="field">
+            <label for="dTitle">Title *</label>
+            <input id="dTitle" type="text" maxlength="140" placeholder="e.g., Deploy capstone build & verify health route" required />
+            <span class="err-msg" id="errTitle" role="alert"></span>
+          </div>
+
+          <div class="row-2">
+            <div class="field">
+              <label for="dModule">Module</label>
+              <select id="dModule">
+                <option value="Frontend UI">Frontend UI</option>
+                <option value="REST API" selected>REST API</option>
+                <option value="Database">Database</option>
+                <option value="AI Integration">AI Integration</option>
+                <option value="Security & QA">Security &amp; QA</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="dPriority">Priority</label>
+              <select id="dPriority">
+                <option value="high">High</option>
+                <option value="medium" selected>Medium</option>
+                <option value="low">Low</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="dNotes">Implementation Notes</label>
+            <textarea id="dNotes" rows="3" placeholder="Acceptance criteria or technical notes..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary">+ Add to Capstone Board</button>
+          <p class="ok-msg" id="createStatus" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <!-- Right: Filterable Deliverable Board -->
+      <section class="card" aria-labelledby="boardHeading">
+        <div class="flex-row" style="margin-bottom: 14px;">
+          <div>
+            <span class="eyebrow">GET / PATCH / DELETE /API/DELIVERABLES</span>
+            <h2 id="boardHeading" style="margin:0;">Capstone Deliverables</h2>
+          </div>
+
+          <div class="filter-row">
+            <input id="searchInput" type="search" placeholder="Search code or title..." aria-label="Search deliverables" />
+            <select id="statusFilter" aria-label="Filter by status">
+              <option value="">All Statuses</option>
+              <option value="backlog">Backlog</option>
+              <option value="in-progress">In Progress</option>
+              <option value="completed">Completed</option>
+            </select>
+            <select id="moduleFilter" aria-label="Filter by module">
+              <option value="">All Modules</option>
+              <option value="Frontend UI">Frontend UI</option>
+              <option value="REST API">REST API</option>
+              <option value="Database">Database</option>
+              <option value="AI Integration">AI Integration</option>
+              <option value="Security & QA">Security &amp; QA</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="deliverablesList" class="deliv-list"></div>
+        <p id="emptyMsg" class="muted" hidden style="margin-top: 12px;">No deliverables match the selected filter.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container flex-row">
+      <span><strong>Ashwarya Agrawal</strong> · Roll No: <strong>23BCON1659</strong></span>
+      <span>Experiment 15 — Full-Stack AI-Integrated Web Application Capstone</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
